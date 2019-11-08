@@ -198,9 +198,7 @@ df.raw <- df.merged %>%
                   COHORT = factor(COHORT, levels = c(1, 2, 3)),
                   CABG = as.factor(case_when(FR02_24 == 2 ~ 1,
                                              FR02_25 == 2 ~ 0)),
-                  followup = yeardiff("26032019", TUTKPVM),
                   BL_AGE = yeardiff(TUTKPVM, SYNTAIKA),
-                  DEATH_AGEDIFF = DEATH_AGE - BL_AGE,
                   DEATH_AGEDIFF = DEATH_AGE - BL_AGE,
                   PREVAL_PAD = as.factor(ifelse(PAD_AGE< BL_AGE & PAD == 1, 1 , 0)),
                   PREVAL_COPD = as.factor(ifelse(COPD_AGE < BL_AGE & COPD == 1, 1 , 0)),
@@ -260,7 +258,8 @@ cbind(mycharacteristics(df),
 
 ## Followup time
 
-Total mean follow-up time is `r round(mean(df$DEATH_AGEDIFF), 2)`.
+Total mean follow-up time is `r round(mean(df$DEATH_AGEDIFF), 2)` and median
+`r round(median(df$DEATH_AGEDIFF), 2)`.
 
 ```{r number of events, echo = FALSE}
 df %>%
